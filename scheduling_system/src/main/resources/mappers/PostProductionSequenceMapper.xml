@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiyou.mapper.PostProductionSequenceMapper">
+  <resultMap id="BaseResultMap" type="com.zhiyou.pojo.PostProductionSequence">
+    <id column="job_number" jdbcType="VARCHAR" property="jobNumber" />
+    <result column="target_delivery" jdbcType="TIMESTAMP" property="targetDelivery" />
+    <result column="po_number" jdbcType="VARCHAR" property="poNumber" />
+    <result column="prd_start_date" jdbcType="TIMESTAMP" property="prdStartDate" />
+    <result column="est_finish_date" jdbcType="TIMESTAMP" property="estFinishDate" />
+    <result column="product_number" jdbcType="VARCHAR" property="productNumber" />
+    <result column="req_quant" jdbcType="INTEGER" property="reqQuant" />
+    <result column="prd_quant" jdbcType="INTEGER" property="prdQuant" />
+    <result column="cycle_time" jdbcType="TIMESTAMP" property="cycleTime" />
+    <result column="process_name" jdbcType="VARCHAR" property="processName" />
+    <result column="equipment_number" jdbcType="VARCHAR" property="equipmentNumber" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    job_number, target_delivery, po_number, prd_start_date, est_finish_date, product_number, 
+    req_quant, prd_quant, cycle_time, process_name, equipment_number
+  </sql>
+  <select id="selectByExample" parameterType="com.zhiyou.pojo.PostProductionSequenceExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from post_production_sequence
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from post_production_sequence
+    where job_number = #{jobNumber,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from post_production_sequence
+    where job_number = #{jobNumber,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zhiyou.pojo.PostProductionSequenceExample">
+    delete from post_production_sequence
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zhiyou.pojo.PostProductionSequence">
+    insert into post_production_sequence (job_number, target_delivery, po_number, 
+      prd_start_date, est_finish_date, product_number, 
+      req_quant, prd_quant, cycle_time, 
+      process_name, equipment_number)
+    values (#{jobNumber,jdbcType=VARCHAR}, #{targetDelivery,jdbcType=TIMESTAMP}, #{poNumber,jdbcType=VARCHAR}, 
+      #{prdStartDate,jdbcType=TIMESTAMP}, #{estFinishDate,jdbcType=TIMESTAMP}, #{productNumber,jdbcType=VARCHAR}, 
+      #{reqQuant,jdbcType=INTEGER}, #{prdQuant,jdbcType=INTEGER}, #{cycleTime,jdbcType=TIMESTAMP}, 
+      #{processName,jdbcType=VARCHAR}, #{equipmentNumber,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhiyou.pojo.PostProductionSequence">
+    insert into post_production_sequence
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="jobNumber != null">
+        job_number,
+      </if>
+      <if test="targetDelivery != null">
+        target_delivery,
+      </if>
+      <if test="poNumber != null">
+        po_number,
+      </if>
+      <if test="prdStartDate != null">
+        prd_start_date,
+      </if>
+      <if test="estFinishDate != null">
+        est_finish_date,
+      </if>
+      <if test="productNumber != null">
+        product_number,
+      </if>
+      <if test="reqQuant != null">
+        req_quant,
+      </if>
+      <if test="prdQuant != null">
+        prd_quant,
+      </if>
+      <if test="cycleTime != null">
+        cycle_time,
+      </if>
+      <if test="processName != null">
+        process_name,
+      </if>
+      <if test="equipmentNumber != null">
+        equipment_number,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="jobNumber != null">
+        #{jobNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="targetDelivery != null">
+        #{targetDelivery,jdbcType=TIMESTAMP},
+      </if>
+      <if test="poNumber != null">
+        #{poNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="prdStartDate != null">
+        #{prdStartDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="estFinishDate != null">
+        #{estFinishDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="productNumber != null">
+        #{productNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="reqQuant != null">
+        #{reqQuant,jdbcType=INTEGER},
+      </if>
+      <if test="prdQuant != null">
+        #{prdQuant,jdbcType=INTEGER},
+      </if>
+      <if test="cycleTime != null">
+        #{cycleTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="processName != null">
+        #{processName,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentNumber != null">
+        #{equipmentNumber,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zhiyou.pojo.PostProductionSequenceExample" resultType="java.lang.Long">
+    select count(*) from post_production_sequence
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update post_production_sequence
+    <set>
+      <if test="record.jobNumber != null">
+        job_number = #{record.jobNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.targetDelivery != null">
+        target_delivery = #{record.targetDelivery,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.poNumber != null">
+        po_number = #{record.poNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.prdStartDate != null">
+        prd_start_date = #{record.prdStartDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.estFinishDate != null">
+        est_finish_date = #{record.estFinishDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.productNumber != null">
+        product_number = #{record.productNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reqQuant != null">
+        req_quant = #{record.reqQuant,jdbcType=INTEGER},
+      </if>
+      <if test="record.prdQuant != null">
+        prd_quant = #{record.prdQuant,jdbcType=INTEGER},
+      </if>
+      <if test="record.cycleTime != null">
+        cycle_time = #{record.cycleTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.processName != null">
+        process_name = #{record.processName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.equipmentNumber != null">
+        equipment_number = #{record.equipmentNumber,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update post_production_sequence
+    set job_number = #{record.jobNumber,jdbcType=VARCHAR},
+      target_delivery = #{record.targetDelivery,jdbcType=TIMESTAMP},
+      po_number = #{record.poNumber,jdbcType=VARCHAR},
+      prd_start_date = #{record.prdStartDate,jdbcType=TIMESTAMP},
+      est_finish_date = #{record.estFinishDate,jdbcType=TIMESTAMP},
+      product_number = #{record.productNumber,jdbcType=VARCHAR},
+      req_quant = #{record.reqQuant,jdbcType=INTEGER},
+      prd_quant = #{record.prdQuant,jdbcType=INTEGER},
+      cycle_time = #{record.cycleTime,jdbcType=TIMESTAMP},
+      process_name = #{record.processName,jdbcType=VARCHAR},
+      equipment_number = #{record.equipmentNumber,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhiyou.pojo.PostProductionSequence">
+    update post_production_sequence
+    <set>
+      <if test="targetDelivery != null">
+        target_delivery = #{targetDelivery,jdbcType=TIMESTAMP},
+      </if>
+      <if test="poNumber != null">
+        po_number = #{poNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="prdStartDate != null">
+        prd_start_date = #{prdStartDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="estFinishDate != null">
+        est_finish_date = #{estFinishDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="productNumber != null">
+        product_number = #{productNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="reqQuant != null">
+        req_quant = #{reqQuant,jdbcType=INTEGER},
+      </if>
+      <if test="prdQuant != null">
+        prd_quant = #{prdQuant,jdbcType=INTEGER},
+      </if>
+      <if test="cycleTime != null">
+        cycle_time = #{cycleTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="processName != null">
+        process_name = #{processName,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentNumber != null">
+        equipment_number = #{equipmentNumber,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where job_number = #{jobNumber,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhiyou.pojo.PostProductionSequence">
+    update post_production_sequence
+    set target_delivery = #{targetDelivery,jdbcType=TIMESTAMP},
+      po_number = #{poNumber,jdbcType=VARCHAR},
+      prd_start_date = #{prdStartDate,jdbcType=TIMESTAMP},
+      est_finish_date = #{estFinishDate,jdbcType=TIMESTAMP},
+      product_number = #{productNumber,jdbcType=VARCHAR},
+      req_quant = #{reqQuant,jdbcType=INTEGER},
+      prd_quant = #{prdQuant,jdbcType=INTEGER},
+      cycle_time = #{cycleTime,jdbcType=TIMESTAMP},
+      process_name = #{processName,jdbcType=VARCHAR},
+      equipment_number = #{equipmentNumber,jdbcType=VARCHAR}
+    where job_number = #{jobNumber,jdbcType=VARCHAR}
+  </update>
+</mapper>

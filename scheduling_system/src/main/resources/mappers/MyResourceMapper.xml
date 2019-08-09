@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiyou.mapper.MyResourceMapper">
+
+    <select id="selectChildByParentId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from resource
+        where imooc_parent_imooc_id = #{imooc_parent_imooc_id,jdbcType=BIGINT}
+    </select>
+
+    <resultMap id="BaseResultMap" type="com.zhiyou.pojo.Resource">
+        <id column="imooc_id" jdbcType="BIGINT" property="imoocId"/>
+        <result column="imooc_createdtime" jdbcType="TIMESTAMP" property="imoocCreatedtime"/>
+        <result column="imooc_icon" jdbcType="VARCHAR" property="imoocIcon"/>
+        <result column="imooc_link" jdbcType="VARCHAR" property="imoocLink"/>
+        <result column="imooc_name" jdbcType="VARCHAR" property="imoocName"/>
+        <result column="imooc_sort" jdbcType="INTEGER" property="imoocSort"/>
+        <result column="imooc_type" jdbcType="VARCHAR" property="imoocType"/>
+        <result column="imooc_parent_imooc_id" jdbcType="BIGINT" property="imoocParentImoocId"/>
+        <collection property="childs"
+                    ofType="com.zhiyou.pojo.Resource"
+                    select="selectChildByParentId"
+                    column="imooc_id"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    imooc_id, imooc_createdtime, imooc_icon, imooc_link, imooc_name, imooc_sort, imooc_type,
+    imooc_parent_imooc_id
+    </sql>
+
+    <select id="loopSelectByPremaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from resource
+        where imooc_id = #{imoocId,jdbcType=BIGINT}
+    </select>
+
+</mapper>

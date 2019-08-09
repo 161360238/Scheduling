@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiyou.mapper.InventoryDataMapper">
+  <resultMap id="BaseResultMap" type="com.zhiyou.pojo.InventoryData">
+    <id column="inverntory_number" jdbcType="CHAR" property="inverntoryNumber" />
+    <result column="inventory-name" jdbcType="VARCHAR" property="inventoryName" />
+    <result column="lot_number" jdbcType="VARCHAR" property="lotNumber" />
+    <result column="raw_material_number" jdbcType="VARCHAR" property="rawMaterialNumber" />
+    <result column="material_description" jdbcType="VARCHAR" property="materialDescription" />
+    <result column="material_category" jdbcType="VARCHAR" property="materialCategory" />
+    <result column="raw_material_quantity" jdbcType="INTEGER" property="rawMaterialQuantity" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    inverntory_number, inventory-name, lot_number, raw_material_number, material_description, 
+    material_category, raw_material_quantity
+  </sql>
+  <select id="selectByExample" parameterType="com.zhiyou.pojo.InventoryDataExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from inventory_data
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from inventory_data
+    where inverntory_number = #{inverntoryNumber,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from inventory_data
+    where inverntory_number = #{inverntoryNumber,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zhiyou.pojo.InventoryDataExample">
+    delete from inventory_data
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zhiyou.pojo.InventoryData">
+    insert into inventory_data (inverntory_number, inventory-name, lot_number, 
+      raw_material_number, material_description, 
+      material_category, raw_material_quantity)
+    values (#{inverntoryNumber,jdbcType=CHAR}, #{inventoryName,jdbcType=VARCHAR}, #{lotNumber,jdbcType=VARCHAR}, 
+      #{rawMaterialNumber,jdbcType=VARCHAR}, #{materialDescription,jdbcType=VARCHAR}, 
+      #{materialCategory,jdbcType=VARCHAR}, #{rawMaterialQuantity,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhiyou.pojo.InventoryData">
+    insert into inventory_data
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="inverntoryNumber != null">
+        inverntory_number,
+      </if>
+      <if test="inventoryName != null">
+        inventory-name,
+      </if>
+      <if test="lotNumber != null">
+        lot_number,
+      </if>
+      <if test="rawMaterialNumber != null">
+        raw_material_number,
+      </if>
+      <if test="materialDescription != null">
+        material_description,
+      </if>
+      <if test="materialCategory != null">
+        material_category,
+      </if>
+      <if test="rawMaterialQuantity != null">
+        raw_material_quantity,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="inverntoryNumber != null">
+        #{inverntoryNumber,jdbcType=CHAR},
+      </if>
+      <if test="inventoryName != null">
+        #{inventoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="lotNumber != null">
+        #{lotNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="rawMaterialNumber != null">
+        #{rawMaterialNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="materialDescription != null">
+        #{materialDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="materialCategory != null">
+        #{materialCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="rawMaterialQuantity != null">
+        #{rawMaterialQuantity,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zhiyou.pojo.InventoryDataExample" resultType="java.lang.Long">
+    select count(*) from inventory_data
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update inventory_data
+    <set>
+      <if test="record.inverntoryNumber != null">
+        inverntory_number = #{record.inverntoryNumber,jdbcType=CHAR},
+      </if>
+      <if test="record.inventoryName != null">
+        inventory-name = #{record.inventoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lotNumber != null">
+        lot_number = #{record.lotNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rawMaterialNumber != null">
+        raw_material_number = #{record.rawMaterialNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.materialDescription != null">
+        material_description = #{record.materialDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="record.materialCategory != null">
+        material_category = #{record.materialCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rawMaterialQuantity != null">
+        raw_material_quantity = #{record.rawMaterialQuantity,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update inventory_data
+    set inverntory_number = #{record.inverntoryNumber,jdbcType=CHAR},
+      inventory-name = #{record.inventoryName,jdbcType=VARCHAR},
+      lot_number = #{record.lotNumber,jdbcType=VARCHAR},
+      raw_material_number = #{record.rawMaterialNumber,jdbcType=VARCHAR},
+      material_description = #{record.materialDescription,jdbcType=VARCHAR},
+      material_category = #{record.materialCategory,jdbcType=VARCHAR},
+      raw_material_quantity = #{record.rawMaterialQuantity,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhiyou.pojo.InventoryData">
+    update inventory_data
+    <set>
+      <if test="inventoryName != null">
+        inventory-name = #{inventoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="lotNumber != null">
+        lot_number = #{lotNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="rawMaterialNumber != null">
+        raw_material_number = #{rawMaterialNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="materialDescription != null">
+        material_description = #{materialDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="materialCategory != null">
+        material_category = #{materialCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="rawMaterialQuantity != null">
+        raw_material_quantity = #{rawMaterialQuantity,jdbcType=INTEGER},
+      </if>
+    </set>
+    where inverntory_number = #{inverntoryNumber,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhiyou.pojo.InventoryData">
+    update inventory_data
+    set inventory-name = #{inventoryName,jdbcType=VARCHAR},
+      lot_number = #{lotNumber,jdbcType=VARCHAR},
+      raw_material_number = #{rawMaterialNumber,jdbcType=VARCHAR},
+      material_description = #{materialDescription,jdbcType=VARCHAR},
+      material_category = #{materialCategory,jdbcType=VARCHAR},
+      raw_material_quantity = #{rawMaterialQuantity,jdbcType=INTEGER}
+    where inverntory_number = #{inverntoryNumber,jdbcType=CHAR}
+  </update>
+</mapper>

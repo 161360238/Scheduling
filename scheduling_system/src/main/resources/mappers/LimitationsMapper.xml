@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiyou.mapper.LimitationsMapper">
+  <resultMap id="BaseResultMap" type="com.zhiyou.pojo.Limitations">
+    <id column="product_number" jdbcType="VARCHAR" property="productNumber" />
+    <result column="product_name" jdbcType="VARCHAR" property="productName" />
+    <result column="Operation_order" jdbcType="INTEGER" property="operationOrder" />
+    <result column="equipment_number" jdbcType="CHAR" property="equipmentNumber" />
+    <result column="capacity" jdbcType="INTEGER" property="capacity" />
+    <result column="min_prd_quant" jdbcType="INTEGER" property="minPrdQuant" />
+    <result column="work_force_req" jdbcType="VARCHAR" property="workForceReq" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    product_number, product_name, Operation_order, equipment_number, capacity, min_prd_quant, 
+    work_force_req
+  </sql>
+  <select id="selectByExample" parameterType="com.zhiyou.pojo.LimitationsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from limitations
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from limitations
+    where product_number = #{productNumber,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from limitations
+    where product_number = #{productNumber,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zhiyou.pojo.LimitationsExample">
+    delete from limitations
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zhiyou.pojo.Limitations">
+    insert into limitations (product_number, product_name, Operation_order, 
+      equipment_number, capacity, min_prd_quant, 
+      work_force_req)
+    values (#{productNumber,jdbcType=VARCHAR}, #{productName,jdbcType=VARCHAR}, #{operationOrder,jdbcType=INTEGER}, 
+      #{equipmentNumber,jdbcType=CHAR}, #{capacity,jdbcType=INTEGER}, #{minPrdQuant,jdbcType=INTEGER}, 
+      #{workForceReq,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhiyou.pojo.Limitations">
+    insert into limitations
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="productNumber != null">
+        product_number,
+      </if>
+      <if test="productName != null">
+        product_name,
+      </if>
+      <if test="operationOrder != null">
+        Operation_order,
+      </if>
+      <if test="equipmentNumber != null">
+        equipment_number,
+      </if>
+      <if test="capacity != null">
+        capacity,
+      </if>
+      <if test="minPrdQuant != null">
+        min_prd_quant,
+      </if>
+      <if test="workForceReq != null">
+        work_force_req,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="productNumber != null">
+        #{productNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null">
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="operationOrder != null">
+        #{operationOrder,jdbcType=INTEGER},
+      </if>
+      <if test="equipmentNumber != null">
+        #{equipmentNumber,jdbcType=CHAR},
+      </if>
+      <if test="capacity != null">
+        #{capacity,jdbcType=INTEGER},
+      </if>
+      <if test="minPrdQuant != null">
+        #{minPrdQuant,jdbcType=INTEGER},
+      </if>
+      <if test="workForceReq != null">
+        #{workForceReq,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zhiyou.pojo.LimitationsExample" resultType="java.lang.Long">
+    select count(*) from limitations
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update limitations
+    <set>
+      <if test="record.productNumber != null">
+        product_number = #{record.productNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productName != null">
+        product_name = #{record.productName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operationOrder != null">
+        Operation_order = #{record.operationOrder,jdbcType=INTEGER},
+      </if>
+      <if test="record.equipmentNumber != null">
+        equipment_number = #{record.equipmentNumber,jdbcType=CHAR},
+      </if>
+      <if test="record.capacity != null">
+        capacity = #{record.capacity,jdbcType=INTEGER},
+      </if>
+      <if test="record.minPrdQuant != null">
+        min_prd_quant = #{record.minPrdQuant,jdbcType=INTEGER},
+      </if>
+      <if test="record.workForceReq != null">
+        work_force_req = #{record.workForceReq,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update limitations
+    set product_number = #{record.productNumber,jdbcType=VARCHAR},
+      product_name = #{record.productName,jdbcType=VARCHAR},
+      Operation_order = #{record.operationOrder,jdbcType=INTEGER},
+      equipment_number = #{record.equipmentNumber,jdbcType=CHAR},
+      capacity = #{record.capacity,jdbcType=INTEGER},
+      min_prd_quant = #{record.minPrdQuant,jdbcType=INTEGER},
+      work_force_req = #{record.workForceReq,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhiyou.pojo.Limitations">
+    update limitations
+    <set>
+      <if test="productName != null">
+        product_name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="operationOrder != null">
+        Operation_order = #{operationOrder,jdbcType=INTEGER},
+      </if>
+      <if test="equipmentNumber != null">
+        equipment_number = #{equipmentNumber,jdbcType=CHAR},
+      </if>
+      <if test="capacity != null">
+        capacity = #{capacity,jdbcType=INTEGER},
+      </if>
+      <if test="minPrdQuant != null">
+        min_prd_quant = #{minPrdQuant,jdbcType=INTEGER},
+      </if>
+      <if test="workForceReq != null">
+        work_force_req = #{workForceReq,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where product_number = #{productNumber,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhiyou.pojo.Limitations">
+    update limitations
+    set product_name = #{productName,jdbcType=VARCHAR},
+      Operation_order = #{operationOrder,jdbcType=INTEGER},
+      equipment_number = #{equipmentNumber,jdbcType=CHAR},
+      capacity = #{capacity,jdbcType=INTEGER},
+      min_prd_quant = #{minPrdQuant,jdbcType=INTEGER},
+      work_force_req = #{workForceReq,jdbcType=VARCHAR}
+    where product_number = #{productNumber,jdbcType=VARCHAR}
+  </update>
+</mapper>

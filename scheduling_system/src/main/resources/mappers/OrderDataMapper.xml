@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiyou.mapper.OrderDataMapper">
+  <resultMap id="BaseResultMap" type="com.zhiyou.pojo.OrderData">
+    <id column="po_number" jdbcType="VARCHAR" property="poNumber" />
+    <result column="product_number" jdbcType="VARCHAR" property="productNumber" />
+    <result column="quantity" jdbcType="INTEGER" property="quantity" />
+    <result column="target_delivery" jdbcType="TIMESTAMP" property="targetDelivery" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    po_number, product_number, quantity, target_delivery
+  </sql>
+  <select id="selectByExample" parameterType="com.zhiyou.pojo.OrderDataExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from order_data
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from order_data
+    where po_number = #{poNumber,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from order_data
+    where po_number = #{poNumber,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zhiyou.pojo.OrderDataExample">
+    delete from order_data
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zhiyou.pojo.OrderData">
+    insert into order_data (po_number, product_number, quantity, 
+      target_delivery)
+    values (#{poNumber,jdbcType=VARCHAR}, #{productNumber,jdbcType=VARCHAR}, #{quantity,jdbcType=INTEGER}, 
+      #{targetDelivery,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhiyou.pojo.OrderData">
+    insert into order_data
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="poNumber != null">
+        po_number,
+      </if>
+      <if test="productNumber != null">
+        product_number,
+      </if>
+      <if test="quantity != null">
+        quantity,
+      </if>
+      <if test="targetDelivery != null">
+        target_delivery,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="poNumber != null">
+        #{poNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="productNumber != null">
+        #{productNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="quantity != null">
+        #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="targetDelivery != null">
+        #{targetDelivery,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zhiyou.pojo.OrderDataExample" resultType="java.lang.Long">
+    select count(*) from order_data
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update order_data
+    <set>
+      <if test="record.poNumber != null">
+        po_number = #{record.poNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productNumber != null">
+        product_number = #{record.productNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.quantity != null">
+        quantity = #{record.quantity,jdbcType=INTEGER},
+      </if>
+      <if test="record.targetDelivery != null">
+        target_delivery = #{record.targetDelivery,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update order_data
+    set po_number = #{record.poNumber,jdbcType=VARCHAR},
+      product_number = #{record.productNumber,jdbcType=VARCHAR},
+      quantity = #{record.quantity,jdbcType=INTEGER},
+      target_delivery = #{record.targetDelivery,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhiyou.pojo.OrderData">
+    update order_data
+    <set>
+      <if test="productNumber != null">
+        product_number = #{productNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="quantity != null">
+        quantity = #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="targetDelivery != null">
+        target_delivery = #{targetDelivery,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where po_number = #{poNumber,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhiyou.pojo.OrderData">
+    update order_data
+    set product_number = #{productNumber,jdbcType=VARCHAR},
+      quantity = #{quantity,jdbcType=INTEGER},
+      target_delivery = #{targetDelivery,jdbcType=TIMESTAMP}
+    where po_number = #{poNumber,jdbcType=VARCHAR}
+  </update>
+</mapper>

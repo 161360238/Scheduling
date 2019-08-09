@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiyou.mapper.ResourceMapper">
+  <resultMap id="BaseResultMap" type="com.zhiyou.pojo.Resource">
+    <id column="imooc_id" jdbcType="BIGINT" property="imoocId" />
+    <result column="imooc_createdtime" jdbcType="TIMESTAMP" property="imoocCreatedtime" />
+    <result column="imooc_icon" jdbcType="VARCHAR" property="imoocIcon" />
+    <result column="imooc_link" jdbcType="VARCHAR" property="imoocLink" />
+    <result column="imooc_name" jdbcType="VARCHAR" property="imoocName" />
+    <result column="imooc_sort" jdbcType="INTEGER" property="imoocSort" />
+    <result column="imooc_type" jdbcType="VARCHAR" property="imoocType" />
+    <result column="imooc_parent_imooc_id" jdbcType="BIGINT" property="imoocParentImoocId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    imooc_id, imooc_createdtime, imooc_icon, imooc_link, imooc_name, imooc_sort, imooc_type, 
+    imooc_parent_imooc_id
+  </sql>
+  <select id="selectByExample" parameterType="com.zhiyou.pojo.ResourceExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from resource
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from resource
+    where imooc_id = #{imoocId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from resource
+    where imooc_id = #{imoocId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zhiyou.pojo.ResourceExample">
+    delete from resource
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zhiyou.pojo.Resource">
+    insert into resource (imooc_id, imooc_createdtime, imooc_icon, 
+      imooc_link, imooc_name, imooc_sort, 
+      imooc_type, imooc_parent_imooc_id)
+    values (#{imoocId,jdbcType=BIGINT}, #{imoocCreatedtime,jdbcType=TIMESTAMP}, #{imoocIcon,jdbcType=VARCHAR}, 
+      #{imoocLink,jdbcType=VARCHAR}, #{imoocName,jdbcType=VARCHAR}, #{imoocSort,jdbcType=INTEGER}, 
+      #{imoocType,jdbcType=VARCHAR}, #{imoocParentImoocId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhiyou.pojo.Resource">
+    insert into resource
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="imoocId != null">
+        imooc_id,
+      </if>
+      <if test="imoocCreatedtime != null">
+        imooc_createdtime,
+      </if>
+      <if test="imoocIcon != null">
+        imooc_icon,
+      </if>
+      <if test="imoocLink != null">
+        imooc_link,
+      </if>
+      <if test="imoocName != null">
+        imooc_name,
+      </if>
+      <if test="imoocSort != null">
+        imooc_sort,
+      </if>
+      <if test="imoocType != null">
+        imooc_type,
+      </if>
+      <if test="imoocParentImoocId != null">
+        imooc_parent_imooc_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="imoocId != null">
+        #{imoocId,jdbcType=BIGINT},
+      </if>
+      <if test="imoocCreatedtime != null">
+        #{imoocCreatedtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="imoocIcon != null">
+        #{imoocIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="imoocLink != null">
+        #{imoocLink,jdbcType=VARCHAR},
+      </if>
+      <if test="imoocName != null">
+        #{imoocName,jdbcType=VARCHAR},
+      </if>
+      <if test="imoocSort != null">
+        #{imoocSort,jdbcType=INTEGER},
+      </if>
+      <if test="imoocType != null">
+        #{imoocType,jdbcType=VARCHAR},
+      </if>
+      <if test="imoocParentImoocId != null">
+        #{imoocParentImoocId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zhiyou.pojo.ResourceExample" resultType="java.lang.Long">
+    select count(*) from resource
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update resource
+    <set>
+      <if test="record.imoocId != null">
+        imooc_id = #{record.imoocId,jdbcType=BIGINT},
+      </if>
+      <if test="record.imoocCreatedtime != null">
+        imooc_createdtime = #{record.imoocCreatedtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.imoocIcon != null">
+        imooc_icon = #{record.imoocIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imoocLink != null">
+        imooc_link = #{record.imoocLink,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imoocName != null">
+        imooc_name = #{record.imoocName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imoocSort != null">
+        imooc_sort = #{record.imoocSort,jdbcType=INTEGER},
+      </if>
+      <if test="record.imoocType != null">
+        imooc_type = #{record.imoocType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imoocParentImoocId != null">
+        imooc_parent_imooc_id = #{record.imoocParentImoocId,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update resource
+    set imooc_id = #{record.imoocId,jdbcType=BIGINT},
+      imooc_createdtime = #{record.imoocCreatedtime,jdbcType=TIMESTAMP},
+      imooc_icon = #{record.imoocIcon,jdbcType=VARCHAR},
+      imooc_link = #{record.imoocLink,jdbcType=VARCHAR},
+      imooc_name = #{record.imoocName,jdbcType=VARCHAR},
+      imooc_sort = #{record.imoocSort,jdbcType=INTEGER},
+      imooc_type = #{record.imoocType,jdbcType=VARCHAR},
+      imooc_parent_imooc_id = #{record.imoocParentImoocId,jdbcType=BIGINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhiyou.pojo.Resource">
+    update resource
+    <set>
+      <if test="imoocCreatedtime != null">
+        imooc_createdtime = #{imoocCreatedtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="imoocIcon != null">
+        imooc_icon = #{imoocIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="imoocLink != null">
+        imooc_link = #{imoocLink,jdbcType=VARCHAR},
+      </if>
+      <if test="imoocName != null">
+        imooc_name = #{imoocName,jdbcType=VARCHAR},
+      </if>
+      <if test="imoocSort != null">
+        imooc_sort = #{imoocSort,jdbcType=INTEGER},
+      </if>
+      <if test="imoocType != null">
+        imooc_type = #{imoocType,jdbcType=VARCHAR},
+      </if>
+      <if test="imoocParentImoocId != null">
+        imooc_parent_imooc_id = #{imoocParentImoocId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where imooc_id = #{imoocId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhiyou.pojo.Resource">
+    update resource
+    set imooc_createdtime = #{imoocCreatedtime,jdbcType=TIMESTAMP},
+      imooc_icon = #{imoocIcon,jdbcType=VARCHAR},
+      imooc_link = #{imoocLink,jdbcType=VARCHAR},
+      imooc_name = #{imoocName,jdbcType=VARCHAR},
+      imooc_sort = #{imoocSort,jdbcType=INTEGER},
+      imooc_type = #{imoocType,jdbcType=VARCHAR},
+      imooc_parent_imooc_id = #{imoocParentImoocId,jdbcType=BIGINT}
+    where imooc_id = #{imoocId,jdbcType=BIGINT}
+  </update>
+</mapper>
